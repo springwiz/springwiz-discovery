@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: springwiz-discovery-api
+  profiles:
+    active:
+    - peer1
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: peer1
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    leaseRenewalIntervalInSeconds: 30
+    leaseExpirationDurationInSeconds: 50
+  client:
+    serviceUrl:
+      defaultZone: http://peer2:8762/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+logging:
+  level:
+    com.netflix.eureka: DEBUG
+    com.netflix.discovery: DEBUG
